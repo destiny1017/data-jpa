@@ -70,4 +70,19 @@ public class MemberJpaRepositoryTest {
         assertThat(result.get(0).getAge()).isEqualTo(20);
         assertThat(result.size()).isEqualTo(1);
     }
+
+    @Test
+    public void testNamedQuery() {
+        Member memberA = new Member("memberA");
+        Member memberB = new Member("memberB");
+
+        memberJpaRepository.save(memberA);
+        memberJpaRepository.save(memberB);
+
+        List<Member> result = memberJpaRepository.findByUsername("memberA");
+        Member member = result.get(0);
+
+        assertThat(member).isEqualTo(memberA);
+
+    }
 }
