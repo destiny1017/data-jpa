@@ -14,19 +14,24 @@ public class Member {
     @Column(name = "member_id")
     private Long id;
 
-    private String name;
+    private String username;
     private int age;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "team_id")
     private Team team;
 
-    public Member(String name) {
-        this.name = name;
+    public Member(String username) {
+        this.username = username;
     }
 
-    public Member(String name, int age, Team team) {
-        this.name = name;
+    public Member(String username, int age) {
+        this.username = username;
+        this.age = age;
+    }
+
+    public Member(String username, int age, Team team) {
+        this.username = username;
         this.age = age;
         if (team != null) {
             changeTeam(team);
