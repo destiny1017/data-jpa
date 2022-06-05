@@ -184,4 +184,22 @@ public class MemberRepositoryTest {
 
     }
 
+    @Test
+    public void bulkAgePlusTest() {
+        // given
+        memberRepository.save(new Member("memberA", 11));
+        memberRepository.save(new Member("memberB", 14));
+        memberRepository.save(new Member("memberC", 21));
+        memberRepository.save(new Member("memberD", 20));
+        memberRepository.save(new Member("memberE", 40));
+
+        // when
+        int resultCount = memberRepository.bulkAgePlus(20);
+
+        Member member = memberRepository.findByUsername("memberE").get(0);
+        System.out.println("member = " + member);
+
+        // then
+        assertThat(resultCount).isEqualTo(3);
+    }
 }
