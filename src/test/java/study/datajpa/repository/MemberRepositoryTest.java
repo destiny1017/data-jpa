@@ -240,4 +240,18 @@ public class MemberRepositoryTest {
         member.setUsername("member2");
         em.flush(); //Update Query 실행X
     }
+
+    @Test
+    public void customRepositoryTest() {
+        // given
+        memberRepository.save(new Member("memberA", 11));
+        memberRepository.save(new Member("memberB", 14));
+        memberRepository.save(new Member("memberC", 21));
+
+        // when
+        List<Member> member = memberRepository.findMemberCustom();
+
+        assertThat(member.size()).isEqualTo(3);
+
+    }
 }
