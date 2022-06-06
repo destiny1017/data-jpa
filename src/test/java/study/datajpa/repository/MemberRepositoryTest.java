@@ -254,4 +254,24 @@ public class MemberRepositoryTest {
         assertThat(member.size()).isEqualTo(3);
 
     }
+
+    @Test
+    public void JpaEventBaseEntity() throws Exception {
+        Member member1 = new Member("member1", 20);
+        memberRepository.save(member1);
+
+//        Thread.sleep(100);
+        member1.setUsername("member2");
+
+        em.flush();
+        em.clear();
+
+        Member member = memberRepository.findById(member1.getId()).get();
+
+        System.out.println("member.getCreatedDate() = " + member.getCreatedDate());
+        System.out.println("member.getUpdatedDate() = " + member.getLastModifiedDate());
+        System.out.println("member.getCreatedBy() = " + member.getCreatedBy());
+        System.out.println("member.getLastModifiedBy() = " + member.getLastModifiedBy());
+    }
+
 }
